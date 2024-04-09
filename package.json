@@ -19,8 +19,8 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "5.3.4",
-    "strapi-plugin-paywall": "^1.0.0",
-    "styled-components": "5.3.3"
+    "styled-components": "5.3.3",
+    "yarn": "^1.22.22"
   },
   "author": {
     "name": "A Strapi developer"
