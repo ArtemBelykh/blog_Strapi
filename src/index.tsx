@@ -4,7 +4,6 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Blog from "./Blog";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import PostDetail from "./PostDetail";
 import Login from "./Components/Auth/Login";
 import Register from './Components/Auth/Register';
 

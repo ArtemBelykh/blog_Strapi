@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import CardActionArea from "@mui/material/CardActionArea";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import {formatDistanceToNow} from "date-fns";
-import {enUS, ru} from "date-fns/locale";
-import axios, {AxiosResponse} from "axios";
+import {ru} from "date-fns/locale";
+import axios from "axios";
 import {API_URL} from "./Blog";
 import Button from "@mui/material/Button";
 
@@ -41,14 +39,15 @@ const PostDetail = () => {
                 }
             })
 
-            setPost(data.data.data)
+            return data.data.data
         } catch (e) {
             console.error("Error fetching post:", e)
         }
     }
 
     useEffect(() => {
-        fetchData()
+        fetchData().then(r => setPost(r))
+
     }, [])
 
     // const {data} = post

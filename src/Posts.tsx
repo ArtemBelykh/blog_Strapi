@@ -7,16 +7,12 @@ import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import {formatDistanceToNow} from "date-fns";
 import {enUS} from "date-fns/locale";
-import {useParams} from "react-router-dom";
 const Posts = (post: any) => {
-    const {id} = useParams()
 
     const formattedDate = formatDistanceToNow(new Date(post.post.createdAt), {
         locale: enUS,
         addSuffix: true,
     });
-
-    // console.log(post)
 
     return (
 

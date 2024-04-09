@@ -5,8 +5,12 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import {IUser} from "./Blog";
+import {LogoutRounded} from "@mui/icons-material";
+import {Logout} from "./Components/Auth/Logout";
 
 interface HeaderProps {
+    user: IUser,
     sections: ReadonlyArray<{
         title: string;
         url: string;
@@ -15,7 +19,7 @@ interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
-    const { sections, title } = props;
+    const { sections, title, user } = props;
 
     return (
         <React.Fragment>
@@ -33,9 +37,14 @@ export default function Header(props: HeaderProps) {
                 <IconButton>
                     <SearchIcon />
                 </IconButton>
+                {!window.sessionStorage.getItem('jwt') ?
                 <Button variant="outlined" size="small" href='/login'>
                     Войти
                 </Button>
+                    : <div>
+                        {user.username} <LogoutRounded onClick={Logout} href={'/'} />
+                    </div>
+                }
             </Toolbar>
             <Toolbar
                 component="nav"

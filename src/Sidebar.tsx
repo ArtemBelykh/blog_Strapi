@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
@@ -19,7 +18,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar(props: SidebarProps) {
-    const { archives, description, social, title } = props;
+    const { archives, social } = props;
 
     return (
         <Grid item xs={2} md={4}>

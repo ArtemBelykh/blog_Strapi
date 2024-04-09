@@ -16,7 +16,6 @@ import axios from "axios";
 import Posts from "./Posts";
 import {useParams} from "react-router-dom";
 import PostDetail from "./PostDetail";
-import Login from "./Components/Auth/Login";
 
 export const API_URL = 'http://localhost:1337/api'
 
@@ -90,9 +89,36 @@ const sidebar = {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+export interface IUser {
+    id?: number,
+    username?: string,
+    email?: string,
+    provider?: string,
+    confirmed?: boolean,
+    blocked?: boolean,
+    createdAt?: string,
+    updatedAt?: string
+}
+
 export default function Blog() {
     const [posts, setPosts] = useState([])
     const [showPostDetail, setShowPostDetail] = useState(false); // Состояние для отображения деталей поста
+    const [user, setUser] = useState<IUser>({})
+    const {id} = useParams()
+
+
+    const getUser = async () => {
+        try {
+            const user = await axios.get(`${API_URL}/users`, {
+                headers: {
+                    Authorization: `Bearer ${window.sessionStorage.getItem('jwt')}`
+                }
+            })
+            return user.data[0]
+        } catch (e) {
+            console.error("Error fetching post:", e)
+        }
+    }
 
     async function fetchData() {
 
@@ -102,29 +128,28 @@ export default function Blog() {
                     Authorization: `Bearer ${window.sessionStorage.getItem('jwt')}`
                 }
             })
-            setPosts(data.data.data)
+            return data.data.data
         } catch (e) {
             console.error("Error fetching post:", e)
         }
     }
 
     useEffect(() => {
-        fetchData()
+        getUser().then(r => setUser(r))
+        fetchData().then(r => setPosts(r))
 
 
         if (id) {
             setShowPostDetail(true); // Если id определен, показать детали поста
         }
     }, [])
-    const {id} = useParams()
-    // console.log(posts)
 
     return (
 
         <ThemeProvider theme={defaultTheme}>
             <CssBaseline/>
             <Container maxWidth="xl">
-                <Header title="Blog" sections={sections}/>
+                <Header user={user} title="Blog" sections={sections}/>
                 <main>
                     <MainFeaturedPost post={mainFeaturedPost}/>
                     <Grid container spacing={4}>
