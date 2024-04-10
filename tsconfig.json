@@ -1,26 +1,58 @@
 {
   "compilerOptions": {
-    "target": "es5",
     "lib": [
+      "es5",
+      "es6",
       "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
+      "es2022"
+    ], // библиотеки, которые нужно подгрузить
+    "target": "es2020", // версия js, на которую компилить
+    "strictNullChecks": false, // не позволяет присваивать null в необязательные поля
+    "strict": true, // строгая типизация
+    "noImplicitAny": true, // проверяет говно вроде client:IClient client[0].
+    "noImplicitReturns": true, // проверяет, что функция возвращает значение
+    "module": "commonjs", // тип модулей
+    "esModuleInterop": true, // позволяет использовать import * as express from 'express'
+    "moduleResolution": "node", // тип резолвера модулей
+    "outDir": "dist", // папка, куда компилить
+    "rootDir": "./", // папка, откуда компилить
+    "typeRoots": [
+      "./node_modules/@types"
+    ], // папка, где лежат типы
+    "sourceMap": true, // генерировать ли sourceMap
+    "types": [
+      "node",
+      "ejs",
+      "jest",
+      "jquery"
+    ], // типы, которые нужно подгрузить
+    "skipLibCheck": true, // не проверять либы
+    "allowJs": true, // позволяет использовать js файлы
+    "allowSyntheticDefaultImports": true, // позволяет использовать import express from 'express'
+    "allowUnreachableCode": false, // не позволяет писать недостижимый код из-за break или return;
+    "exactOptionalPropertyTypes": false, // не позволяет присваивать undefined в необязательные поля
+    "noFallthroughCasesInSwitch": true, // не позволяет писать пустые case в switch
+    "noImplicitThis": true, // не позволяет использовать this без явного указания типа
+    "noPropertyAccessFromIndexSignature": true, // не позволяет использовать obj['prop'] если у obj нет такого поля
+    "noUnusedLocals": true, // не позволяет объявлять переменные, которые не используются
+    "noUnusedParameters": true, // не позволяет объявлять параметры, которые не используются
+    "strictBindCallApply": true, // не позволяет использовать bind, call, apply без явного указания типа
     "jsx": "react-jsx"
   },
+  "typedocOptions": {
+    "entryPoints": [
+      "src/app.ts"
+    ],
+    "out": "docs"
+  },
   "include": [
-    "src"
+    "src/**/*.ts",
+    "*.d.ts"
+  ],
+  "exclude": [
+    "src/public/**/*",
+    "**/node_modules",
+    "dist/**/*",
+    "cypress/**/*"
   ]
 }
