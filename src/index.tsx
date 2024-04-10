@@ -16,6 +16,7 @@ root.render(
             <Routes>
                 <Route path='/' element={<Blog/>}/>
                 <Route path="/:id" element={<Blog/>}/>
+                <Route path="/:categories" element={<Blog/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
             </Routes>

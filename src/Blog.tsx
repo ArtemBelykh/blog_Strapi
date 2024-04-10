@@ -8,7 +8,6 @@ import XIcon from '@mui/icons-material/X';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
-import FeaturedPost from './FeaturedPost';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import {useEffect, useState} from "react";
@@ -19,20 +18,6 @@ import PostDetail from "./PostDetail";
 
 export const API_URL = 'http://localhost:1337/api'
 
-
-const sections = [
-    {title: 'Technology', url: '#'},
-    {title: 'Design', url: '#'},
-    {title: 'Culture', url: '#'},
-    {title: 'Business', url: '#'},
-    {title: 'Politics', url: '#'},
-    {title: 'Opinion', url: '#'},
-    {title: 'Science', url: '#'},
-    {title: 'Health', url: '#'},
-    {title: 'Style', url: '#'},
-    {title: 'Travel', url: '#'},
-];
-
 const mainFeaturedPost = {
     title: 'Title of a longer featured blog post',
     description:
@@ -41,25 +26,6 @@ const mainFeaturedPost = {
     imageText: 'main image description',
     linkText: 'Continue reading…',
 };
-
-const featuredPosts = [
-    {
-        title: 'Featured post',
-        date: 'Nov 12',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random?wallpapers',
-        imageLabel: 'Image Text',
-    },
-    {
-        title: 'Post title',
-        date: 'Nov 11',
-        description:
-            'This is a wider card with supporting text below as a natural lead-in to additional content.',
-        image: 'https://source.unsplash.com/random?wallpapers',
-        imageLabel: 'Image Text',
-    },
-];
 
 
 const sidebar = {
@@ -104,7 +70,7 @@ export default function Blog() {
     const [posts, setPosts] = useState([])
     const [showPostDetail, setShowPostDetail] = useState(false); // Состояние для отображения деталей поста
     const [user, setUser] = useState<IUser>({})
-    const {id} = useParams()
+    const {id,categories} = useParams()
 
 
     const getUser = async () => {
@@ -123,11 +89,7 @@ export default function Blog() {
     async function fetchData() {
 
         try {
-            const data = await axios.get(`${API_URL}/posts`, {
-                headers: {
-                    Authorization: `Bearer ${window.sessionStorage.getItem('jwt')}`
-                }
-            })
+            const data = await axios.get(`${API_URL}/posts?populate=*`)
             return data.data.data
         } catch (e) {
             console.error("Error fetching post:", e)
@@ -135,8 +97,23 @@ export default function Blog() {
     }
 
     useEffect(() => {
-        getUser().then(r => setUser(r))
-        fetchData().then(r => setPosts(r))
+
+        if (window.sessionStorage.getItem('jwt')) {
+            getUser().then(r => setUser(r))
+        }
+        fetchData().then(r => {
+
+            console.log(r)
+            r.map((data: any) => {
+                data.attributes.post_categories.data.map((category: any) => {
+                    if (category.attributes.url === categories) {
+                        setPosts(r)
+                    }
+                })
+            })
+
+
+        })
 
 
         if (id) {
@@ -144,29 +121,27 @@ export default function Blog() {
         }
     }, [])
 
+
+    // console.log(posts)
+
     return (
 
         <ThemeProvider theme={defaultTheme}>
             <CssBaseline/>
             <Container maxWidth="xl">
-                <Header user={user} title="Blog" sections={sections}/>
+                <Header user={user} title="Blog"/>
                 <main>
                     <MainFeaturedPost post={mainFeaturedPost}/>
-                    <Grid container spacing={4}>
-                        {featuredPosts.map((post) => (
-                            <FeaturedPost key={post.title} post={post}/>
-                        ))}
-                    </Grid>
                     <Grid container spacing={6} sx={{mt: 3}}>
+
                         {
-                            window.sessionStorage.getItem('jwt') ?
-                                showPostDetail ? <PostDetail/> : (
-                                    <>
-                                        {posts.map((data: any, index) => (
-                                            !id ? <Posts key={index} post={data.attributes} id={data.id}/> : null
-                                        ))}
-                                    </>
-                                ) : "Auth"
+
+                            showPostDetail ? <PostDetail/> : (
+                                <>
+                                    {posts.map((data: any, index) => (
+                                        !id ? <Posts key={index} post={data}/> : null
+                                    ))}
+                                </>)
                         }
 
                         <Sidebar

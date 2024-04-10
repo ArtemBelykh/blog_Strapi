@@ -5,18 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dec46df9-166f-4fb6-8308-4b3bf920ca7e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/blog_mui.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Blog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Blog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Auth/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Auth/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FeaturedPost.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Header.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PostDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/PostDetail.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Posts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Posts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blog-post.1.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blog-post.2.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blog-post.3.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,9 +38,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2esPyRu0GJMNKz0fKy9VytR9ILn" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -53,13 +51,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "front",
-    "last_opened_file_path": "/home/artembelykh/WebstormProjects/front/blog_StrapiNext",
+    "last_opened_file_path": "/home/artembelykh/WebstormProjects/strapi/blog_StrapiNext_Back",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/home/artembelykh/WebstormProjects/front/blog_StrapiNext/node_modules/typescript/lib",
+    "ts.external.directory.path": "/home/artembelykh/WebstormProjects/strapi/blog_StrapiNext/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -72,6 +70,7 @@
       <option name="presentableId" value="Default" />
       <updated>1712690566384</updated>
       <workItem from="1712690567568" duration="5295000" />
+      <workItem from="1712735369133" duration="16509000" />
     </task>
     <servers />
   </component>

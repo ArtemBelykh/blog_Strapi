@@ -11,7 +11,7 @@ import {API_URL} from "./Blog";
 import Button from "@mui/material/Button";
 
 
-interface IGovna {
+export interface IPost {
     id: number,
     attributes: {
         content: any,
@@ -19,7 +19,14 @@ interface IGovna {
         date_post: string,
         publishedAt: string,
         title: string,
-        updatedAt: string
+        updatedAt: string,
+        cover_picture: {
+            data: {
+                attributes: {
+                    url?: string
+                }
+            }
+        }
     }
 
 }
@@ -27,17 +34,13 @@ interface IGovna {
 
 const PostDetail = () => {
     const {id} = useParams()
-    const [post, setPost] = useState<IGovna>()
+    const [post, setPost] = useState<IPost>()
     const navigate = useNavigate();
 
     async function fetchData() {
 
         try {
-            const data = await axios.get(`${API_URL}/posts/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${window.sessionStorage.getItem('jwt')}`
-                }
-            })
+            const data = await axios.get(`${API_URL}/posts/${id}`)
 
             return data.data.data
         } catch (e) {
@@ -72,7 +75,16 @@ const PostDetail = () => {
                     </Typography>
 
                     <Typography variant="subtitle2" color="text.secondary">
-                        <div dangerouslySetInnerHTML={{__html: post?.attributes.content}}></div>
+                        {window.sessionStorage.getItem('jwt') ? (
+                            <div dangerouslySetInnerHTML={{__html: post?.attributes.content}}></div>
+                        ) : (
+                            <>
+                                <div dangerouslySetInnerHTML={{ __html: post?.attributes.content.substring(0, post.attributes.content.length / 2) }}></div>
+                                <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+                                    Для продолжения чтения статьи, пожалуйста, <Button color="primary" onClick={() => navigate('/login')}>авторизуйтесь</Button>.
+                                </Typography>
+                            </>
+                        )}
                     </Typography>
                 </CardContent>
                 {/*<CardMedia*/}

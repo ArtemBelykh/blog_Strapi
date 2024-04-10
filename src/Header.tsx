@@ -5,62 +5,83 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import {IUser} from "./Blog";
+import {API_URL, IUser} from "./Blog";
 import {LogoutRounded} from "@mui/icons-material";
 import {Logout} from "./Components/Auth/Logout";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 interface HeaderProps {
-    user: IUser,
-    sections: ReadonlyArray<{
-        title: string;
-        url: string;
-    }>;
+    user: IUser;
     title: string;
 }
 
+interface Category {
+
+    id: number,
+    attributes: {
+        title: string,
+        url: string
+    }
+}
+
+const getCategory = async () => {
+    try {
+        const category = await axios.get(`${API_URL}/post-categories?populate=*`)
+        return category.data.data
+    } catch (e) {
+        console.error("Error fetching category:", e)
+    }
+}
+
+
 export default function Header(props: HeaderProps) {
-    const { sections, title, user } = props;
+    const {title, user} = props;
+    const [postCategory, setPostCategory] = useState<Category[]>([])
+
+    useEffect(() => {
+        getCategory().then(postCategory => setPostCategory(postCategory))
+    }, [])
 
     return (
         <React.Fragment>
-            <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Toolbar sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Typography
                     component="h2"
                     variant="h5"
                     color="inherit"
                     align="center"
                     noWrap
-                    sx={{ flex: 1 }}
+                    sx={{flex: 1}}
                 >
                     {title}
                 </Typography>
                 <IconButton>
-                    <SearchIcon />
+                    <SearchIcon/>
                 </IconButton>
                 {!window.sessionStorage.getItem('jwt') ?
-                <Button variant="outlined" size="small" href='/login'>
-                    Войти
-                </Button>
+                    <Button variant="outlined" size="small" href='/login'>
+                        Войти
+                    </Button>
                     : <div>
-                        {user.username} <LogoutRounded onClick={Logout} href={'/'} />
+                        {user.username} <LogoutRounded onClick={Logout} href={'/'}/>
                     </div>
                 }
             </Toolbar>
             <Toolbar
                 component="nav"
                 variant="dense"
-                sx={{ justifyContent: 'space-between', overflowX: 'auto' }}
+                sx={{justifyContent: 'space-between', overflowX: 'auto'}}
             >
-                {sections.map((section) => (
+                {postCategory.map((postCategory) => (
                     <Link
                         color="inherit"
                         noWrap
-                        key={section.title}
                         variant="body2"
-                        href={section.url}
+                        href={"/" + postCategory.attributes.url}
                         sx={{ p: 1, flexShrink: 0 }}
                     >
-                        {section.title}
+                        {postCategory.attributes.title}
                     </Link>
                 ))}
             </Toolbar>
